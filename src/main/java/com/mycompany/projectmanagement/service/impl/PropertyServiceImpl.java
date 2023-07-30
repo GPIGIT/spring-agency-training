@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+import java.util.Optional;
+
 
 // SAY OF SPRING - to get lifecycle of this BEAN(class) - it mean to create instance and destroy it
 @Service            // @Configuration @Component @Repository @Controller- those annotations make this class as singleton object, we use Service because it talk to us this will be Business logic which is our service layer
@@ -44,5 +45,25 @@ public class PropertyServiceImpl implements PropertyService {
                propList.add(dto);
             }
             return propList;
+    }
+
+    @Override
+    public PropertyDTO updateProperty(PropertyDTO propertyDTO, Long propertyId) {
+        //first get id of the row which wan to update
+         Optional<PropertyEntity> optionalEntity = propertyRepository.findById(propertyId);
+         PropertyDTO dto = null;
+
+         if(optionalEntity.isPresent()){
+            PropertyEntity pe = optionalEntity.get();  //data from DB down lines override the columns
+            pe.setTitle(propertyDTO.getTitle());
+            pe.setDescription(propertyDTO.getDescription());
+            pe.setAddress(propertyDTO.getAddress());
+            pe.setOwnerEmail(propertyDTO.getOwnerEmail());
+            pe.setOwnerName(propertyDTO.getOwnerName());
+            pe.setPrice(propertyDTO.getPrice());
+             dto = propertyConverter.convertEntityToDTO(pe);
+             propertyRepository.save(pe); //here save changes in to DB
+        }
+        return dto;
     }
 }
