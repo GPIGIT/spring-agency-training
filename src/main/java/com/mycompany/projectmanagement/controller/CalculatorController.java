@@ -3,6 +3,10 @@ package com.mycompany.projectmanagement.controller;
 
 //PASS PARAMETERS BY URL
 
+import ch.qos.logback.core.boolex.EvaluationException;
+import com.mycompany.projectmanagement.dto.CalculatorDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -46,4 +50,23 @@ public class CalculatorController {
 
         return num1 + num2 + num3;
     }
+
+
+    // * @PostMapping("/mul")  scenario when want to handle with sequence of params wich will map to variables inside the  CalculatorDTO.class
+    // here receive data in JSON format which keep data in key : value pair
+//    {
+//            "num1": 3,
+//            "num2": 4,
+//            "num4":1
+//    }
+            @PostMapping("/mul")
+            public ResponseEntity<Double> multiply (@RequestBody CalculatorDTO calculatorDTO) {  // before Response entity was simple Double
+                Double result = null;
+                result = calculatorDTO.getNum1() * calculatorDTO.getNum2() * calculatorDTO.getNum4();
+
+                //Scenario WHEN WE WANT TO RETURN AND HTTP RESPONSE CODE
+                //<here return type of method>        <return type of method> (result, status of http)
+                ResponseEntity<Double> responseEntity = new ResponseEntity<Double>(result, HttpStatus.CREATED); //HttpStatus.CREATED - value is 201
+               return responseEntity; // result was before Response entity
+            }
 }
