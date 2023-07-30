@@ -20,5 +20,8 @@ public interface PropertyService {
 
     public PropertyDTO updateProperty(PropertyDTO propertyDTO, Long propertyId); // pass new property which want to update and id of the existing property
 
-    public PropertyDTO updatePropertyDescription( PropertyDTO propertyDTO, Long propertyId);
+    public PropertyDTO updatePropertyDescription( PropertyDTO propertyDTO, Long propertyId); // example for partial update -> Http use PATCH method
+
+    void deleteProperty(Long propertyId);
+
 }
