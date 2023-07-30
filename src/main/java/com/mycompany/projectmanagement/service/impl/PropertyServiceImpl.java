@@ -1,5 +1,6 @@
 package com.mycompany.projectmanagement.service.impl;
 
+import com.mycompany.projectmanagement.converter.PropertyConverter;
 import com.mycompany.projectmanagement.dto.PropertyDTO;
 import com.mycompany.projectmanagement.entity.PropertyEntity;
 import com.mycompany.projectmanagement.repository.PropertyRepository;
@@ -13,19 +14,15 @@ public class PropertyServiceImpl implements PropertyService {
     @Autowired
     private PropertyRepository propertyRepository; //say on SPRING to inject here our propertylayer and now our servie layer can talk with Repository layer
 
+    @Autowired
+    private PropertyConverter propertyConverter;
     @Override
     public PropertyDTO saveProperty(PropertyDTO propertyDTO) {
             // convert propertyDTO to Entity type
             // Adapter design pattern - one layer use one type od data and another need diffrent type of data we need make compatibility conversation
-        PropertyEntity pe = new PropertyEntity();
-        pe.setTitle(propertyDTO.getTitle());
-        pe.setDescription(propertyDTO.getDescription());
-        pe.setAddress(propertyDTO.getAddress());
-        pe.setOwnerEmail(propertyDTO.getOwnerEmail());
-        pe.setOwnerName(propertyDTO.getOwnerName());
-        pe.setPrice(propertyDTO.getPrice());
 
-        propertyRepository.save(pe);
+        PropertyEntity propertyEntity = propertyConverter.convertDTOToEntity(propertyDTO);
+        propertyRepository.save(propertyEntity);
         return propertyDTO;
     }
 }
