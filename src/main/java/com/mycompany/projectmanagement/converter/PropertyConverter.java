@@ -20,4 +20,16 @@ public class PropertyConverter {
 
         return pe;
     }
+
+    public PropertyDTO convertEntityToDTO(PropertyEntity propertyEntity){
+        PropertyDTO propertyDTO = new PropertyDTO();
+        propertyDTO.setId(propertyEntity.getId());
+        propertyDTO.setTitle(propertyEntity.getTitle());
+        propertyDTO.setDescription(propertyEntity.getDescription());
+        propertyDTO.setAddress(propertyEntity.getAddress());
+        propertyDTO.setOwnerEmail(propertyEntity.getOwnerEmail());
+        propertyDTO.setOwnerName(propertyEntity.getOwnerName());
+        propertyDTO.setPrice(propertyEntity.getPrice());
+        return propertyDTO;
+    }
 }

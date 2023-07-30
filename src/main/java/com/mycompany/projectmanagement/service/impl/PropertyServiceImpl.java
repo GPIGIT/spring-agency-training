@@ -22,7 +22,11 @@ public class PropertyServiceImpl implements PropertyService {
             // Adapter design pattern - one layer use one type od data and another need diffrent type of data we need make compatibility conversation
 
         PropertyEntity propertyEntity = propertyConverter.convertDTOToEntity(propertyDTO);
-        propertyRepository.save(propertyEntity);
+         propertyEntity =  propertyRepository.save(propertyEntity); // After save in DB JPA will return ID from DB
+
+          // now want to take PK from DB and return to user
+        propertyDTO = propertyConverter.convertEntityToDTO(propertyEntity);
+
         return propertyDTO;
     }
 }

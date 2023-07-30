@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class PropertyDTO {
 
-
+    private Long id;      // make modification because need to get id and return for the client
     private String title; // type of property(apartment, house & etc..
     private String description;
     private String address;
@@ -70,5 +70,13 @@ public class PropertyDTO {
 
     public void setOwnerEmail(String ownerEmail) {
         this.ownerEmail = ownerEmail;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
