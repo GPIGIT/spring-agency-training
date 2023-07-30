@@ -13,7 +13,7 @@ public class PropertyDTO {
 
 
     private String title; // type of property(apartment, house & etc..
-    private String desciprtion;
+    private String description;
     private String address;
     private Double price;
     private String ownerName;

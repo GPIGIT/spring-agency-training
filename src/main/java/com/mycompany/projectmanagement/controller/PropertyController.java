@@ -1,17 +1,29 @@
 package com.mycompany.projectmanagement.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.mycompany.projectmanagement.dto.PropertyDTO;
+import com.mycompany.projectmanagement.service.PropertyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController         //SPRING now now that class is controll the data from the client browser
-@RequestMapping("/api/v1/")       //SPRING receive instruction to listten for iteraction on particular URL -localhost:8080/api/v1/test - /test it's show which method from this class will be execute and what type will be use from REST(GET/PUT/DELETE  ans so on/
+@RequestMapping("/api/v1")       //SPRING receive instruction to listten for iteraction on particular URL -localhost:8080/api/v1/test - /test it's show which method from this class will be execute and what type will be use from REST(GET/PUT/DELETE  ans so on/
 public class PropertyController {
-
+        @Autowired // say on SRING to get memory - if not sat that we will have null exception
+        private PropertyService propertyService;  //here use Dependency Injection(DI) -SPRING inject automatically our dependencies and now make possible controller to invoke the service layer
+                                                  //DI - it's design pattern which make decouple of code and make it extensible & scalable
  //HERE JUST SAMPLE METHOD try to see it works
     @GetMapping("/test")   //Sat on SPRING this is getter method which work on base on REST API Architecture
     public String sayHello(){
         return "Hello";
     }
+
+
+    @PostMapping("/properties")
+    public PropertyDTO saveProperty(@RequestBody PropertyDTO propertyDTO) {
+        propertyService.saveProperty();
+        System.out.println(propertyDTO);
+        return propertyDTO;
+    }
+
 }
