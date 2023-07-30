@@ -66,4 +66,21 @@ public class PropertyServiceImpl implements PropertyService {
         }
         return dto;
     }
+
+    @Override
+    public PropertyDTO updatePropertyDescription(PropertyDTO propertyDTO, Long propertyId) {
+
+        Optional<PropertyEntity> optionalEntity = propertyRepository.findById(propertyId);
+        PropertyDTO dto = null;
+
+        if (optionalEntity.isPresent()) {
+            PropertyEntity pe = optionalEntity.get();  //data from DB down line override the column description
+            pe.setDescription(propertyDTO.getDescription());
+
+            dto = propertyConverter.convertEntityToDTO(pe);
+            propertyRepository.save(pe); //here save changes in to DB
+
+        }
+        return dto;
+    }
 }

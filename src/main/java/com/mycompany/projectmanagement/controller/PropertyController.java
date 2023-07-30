@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController         //SPRING now now that class is controll the data from the client browser
-@RequestMapping("/api/v1")       //SPRING receive instruction to listten for iteraction on particular URL -localhost:8080/api/v1/test - /test it's show which method from this class will be execute and what type will be use from REST(GET/PUT/DELETE  ans so on/
+@RequestMapping("/api/v1")       //SPRING received instruction to listen for interaction on particular URL -localhost:8080/api/v1/test - /test it's show which method from this class will be execute and what type will be use from REST(GET/PUT/DELETE  ans so on/
 public class PropertyController {
         @Autowired // say on SRING to get memory - if not sat that we will have null exception
         private PropertyService propertyService;  //here use Dependency Injection(DI) -SPRING inject automatically our dependencies and now make possible controller to invoke the service layer
@@ -41,11 +41,19 @@ public class PropertyController {
       return responseEntity;
     }
 
-    @PutMapping("/properties/{propertyId}")
+    @PutMapping("/properties/{propertyId}")  // example Full update in DB
     public  ResponseEntity<PropertyDTO> updateProperty(@RequestBody PropertyDTO propertyDTO, @PathVariable Long propertyId){
 
       propertyDTO =    propertyService.updateProperty(propertyDTO,propertyId);
-        ResponseEntity<PropertyDTO> responseEntity = new ResponseEntity<PropertyDTO>(propertyDTO, HttpStatus.CREATED);
+        ResponseEntity<PropertyDTO> responseEntity = new ResponseEntity<PropertyDTO>(propertyDTO, HttpStatus.OK);
+        return responseEntity;
+    }
+
+    @PatchMapping("/properties/update-description/{propertyId}")   // example partial update in DB
+    public  ResponseEntity<PropertyDTO> updatePropertyDescription(@RequestBody PropertyDTO propertyDTO, @PathVariable Long propertyId){
+
+        propertyDTO =    propertyService.updatePropertyDescription(propertyDTO,propertyId);
+        ResponseEntity<PropertyDTO> responseEntity = new ResponseEntity<PropertyDTO>(propertyDTO, HttpStatus.OK);
         return responseEntity;
     }
 }
