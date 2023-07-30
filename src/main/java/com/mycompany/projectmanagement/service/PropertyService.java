@@ -2,6 +2,9 @@ package com.mycompany.projectmanagement.service;
 
 import com.mycompany.projectmanagement.dto.PropertyDTO;
 
+import java.util.List;
+import java.util.Properties;
+
 
 // We make this to be interface because this log can be reused from more than one class - this call Factory Design pattern
 
@@ -11,4 +14,5 @@ public interface PropertyService {
 
     public PropertyDTO saveProperty (PropertyDTO propertyDTO); //user save property and return the same property to him
 
+    public List<PropertyDTO> getAllProperties() ;
 }

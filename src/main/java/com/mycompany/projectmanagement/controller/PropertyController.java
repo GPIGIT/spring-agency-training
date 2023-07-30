@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController         //SPRING now now that class is controll the data from the client browser
 @RequestMapping("/api/v1")       //SPRING receive instruction to listten for iteraction on particular URL -localhost:8080/api/v1/test - /test it's show which method from this class will be execute and what type will be use from REST(GET/PUT/DELETE  ans so on/
@@ -28,6 +30,15 @@ public class PropertyController {
 //                    <type of return data>               < type of resullt, PK>
         ResponseEntity<PropertyDTO> responseEntity = new ResponseEntity<PropertyDTO>(propertyDTO, HttpStatus.CREATED);
         return responseEntity;
+    }
+
+    @GetMapping("/properties")
+    public  ResponseEntity<List<PropertyDTO>>  getAllProperties() {
+
+      List<PropertyDTO> propertyList = propertyService.getAllProperties();
+      ResponseEntity<List<PropertyDTO>> responseEntity = new ResponseEntity<List<PropertyDTO>>(propertyList,HttpStatus.OK);
+
+      return responseEntity;
     }
 
 }
