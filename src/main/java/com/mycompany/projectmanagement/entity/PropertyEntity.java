@@ -1,25 +1,43 @@
-package com.mycompany.projectmanagement.dto;
+package com.mycompany.projectmanagement.entity;
+// THIS IS DTO but call entity becasue it's represent the layer Repository
 
 import lombok.Getter;
-import lombok.Lombok;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//THIS CLASS IS USE TO HANDLE WITH THE DATA FROM CLIENt and SPRING automatically parse JSON from client to java class
+import javax.persistence.*;
 
-// Lombok - generate setters & getters whit both annotations
+
+
+@Entity  //SPRING now know that is Object for table (ORM)
+@Table
+//@Table(name = "PROPERTY_TABLE") // give name of table not take default name of the class
 @Getter
 @Setter
-public class PropertyDTO {
+@NoArgsConstructor
+public class PropertyEntity {
 
+    @Id                 // JPA know that is ID Primary Key(PK)
+    @GeneratedValue( strategy = GenerationType.AUTO) //  autogenerate values for PK
+    private Long id;
 
-    private String title; // type of property(apartment, house & etc..
+//    @Column(name = "PROPERTY_TITLE", nullable = false)  // say how to name the column in table not to get the default name of the properties and set some contrainst
+    private String title;
     private String description;
     private String address;
     private Double price;
     private String ownerName;
     private String ownerEmail;
 
-//We use Lombok library which remove boiler code
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -29,10 +47,6 @@ public class PropertyDTO {
     }
 
     public String getDescription() {
-        return description;
-    }
-
-    public String getDescritption() {
         return description;
     }
 

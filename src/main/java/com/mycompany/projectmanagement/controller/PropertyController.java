@@ -21,7 +21,7 @@ public class PropertyController {
 
     @PostMapping("/properties")
     public PropertyDTO saveProperty(@RequestBody PropertyDTO propertyDTO) {
-        propertyService.saveProperty();
+        propertyService.saveProperty(propertyDTO);
         System.out.println(propertyDTO);
         return propertyDTO;
     }

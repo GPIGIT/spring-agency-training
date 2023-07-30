@@ -9,6 +9,6 @@ import com.mycompany.projectmanagement.dto.PropertyDTO;
 
 public interface PropertyService {
 
-    public PropertyDTO saveProperty (); //user save property and return the same property to him
+    public PropertyDTO saveProperty (PropertyDTO propertyDTO); //user save property and return the same property to him
 
 }
